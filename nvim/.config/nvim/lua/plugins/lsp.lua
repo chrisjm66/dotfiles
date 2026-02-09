@@ -15,7 +15,7 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "laravel_ls", "intelephense" },
+				ensure_installed = { "lua_ls", "laravel_ls", "intelephense", "gopls" },
 			})
 		end,
 	},
@@ -38,6 +38,17 @@ return {
 			vim.lsp.config("intelephense", {
 				capabilities = capabilities,
 			})
+
+			vim.lsp.enable("gopls")
+			vim.lsp.config("gopls", {
+				capabilities = capabilities,
+			})
+
+      vim.diagnostic.enable = true
+      vim.diagnostic.config({
+        virtual_text = true,
+      })
+
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
@@ -55,6 +66,8 @@ return {
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.diagnostics.eslint_d,
 					null_ls.builtins.completion.spell,
+          null_ls.builtins.diagnostics['golangci-lint'],
+          null_ls.builtins.formatting.goimports
 				},
 			})
 
