@@ -32,11 +32,13 @@ return {
 			vim.lsp.enable("laravel_ls")
 			vim.lsp.config("laravel_ls", {
 				capabilities = capabilities,
+				filetypes = { "php", "blade" },
 			})
 
 			vim.lsp.enable("intelephense")
 			vim.lsp.config("intelephense", {
 				capabilities = capabilities,
+				filetypes = { "php", "blade" },
 			})
 
 			vim.lsp.enable("gopls")
