@@ -1,0 +1,3 @@
+[Unknown Dates] setup neovim, i3, and dependencies
+[2026-03-07] Add SDDM styling (sugar candy) + packages: qt5 graphicaleffects qt5-quickcontrols2 qt5-svg
+[2026-03-09] Add sway WM (sway, waybar, wofi, network-manager-applet, swaybg, swaylock, swayidle, dunst)
