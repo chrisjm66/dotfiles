@@ -1,7 +1,25 @@
 return {
-  {
-    "hrsh7th/cmp-nvim-lsp"
-  },
+	{
+		"hrsh7th/cmp-nvim-lsp",
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		opts = {
+			suggestion = { enabled = false },
+			panel = { enabled = false },
+		},
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		dependencies = {
+			"zbirenbaum/copilot.lua",
+		},
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	},
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = {
@@ -11,14 +29,18 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"hrsh7th/cmp-buffer",
+			"zbirenbaum/copilot-cmp",
+		},
 		config = function()
 			local cmp = require("cmp")
-      require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_vscode").lazy_load()
 
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 				window = {
@@ -33,8 +55,9 @@ return {
 					["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 				}),
 				sources = cmp.config.sources({
+					{ name = "copilot" },
 					{ name = "nvim_lsp" },
-					{ name = "luasnip" }, -- For luasnip users.
+					{ name = "luasnip" },
 				}, {
 					{ name = "buffer" },
 				}),
